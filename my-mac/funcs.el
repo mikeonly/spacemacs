@@ -1,0 +1,5 @@
+(defun my-ignore-error-wrapper (fn)
+  (lexical-let ((fn fn))
+    (lambda ()
+      (interactive)
+      (ignore-errors (funcall fn)))))
