@@ -132,6 +132,7 @@ in `dotspacemacs/user-config'."
 
 (defun dotspacemacs/user-config ()
   (remove-hook 'prog-mode-hook 'spacemacs//show-trailing-whitespace)
+  (spaceline-toggle-hud-off)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
