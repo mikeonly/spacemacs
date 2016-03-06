@@ -29,6 +29,7 @@ values."
      ;; Custom
      my-mac
      my-ibuffer
+     my-font
      )
    dotspacemacs-additional-packages '()
    dotspacemacs-excluded-packages
