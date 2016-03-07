@@ -1,5 +1,5 @@
 # spacemacs
-My [Spacemacs](https://github.com/syl20bnr/spacemacs) configuration. 
+My Emacs configuration on top of [Spacemacs](https://github.com/syl20bnr/spacemacs). 
 
 I used to keep it in a private repo on Bitbucket, but GitHub goodies tempted me to import it here. Probably, should have named this repo better, but I will leave it for later and open an issue for that.
 
