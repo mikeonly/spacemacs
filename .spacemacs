@@ -11,21 +11,24 @@ values."
    dotspacemacs-configuration-layer-path '("~/Dev/spacemacs/")
    dotspacemacs-configuration-layers
    '(
-     (theming :variables
-              theming-headings-inherit-from-default 'all
-              theming-headings-same-size 'all
-              theming-headings-bold 'all)
      (auto-completion :variables auto-completion-enable-sort-by-usage t)
-     semantic
      emacs-lisp
+     extra-langs
+     git
+     (ibuffer :variables ibuffer-group-buffers-by nil)
      markdown
+     ranger
+     semantic
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
             shell-default-shell 'zsh)
-     (ibuffer :variables ibuffer-group-buffers-by nil)
      (spell-checking :variables syntax-checking-enable-by-default nil)
-     extra-langs
+     (theming :variables
+              theming-headings-inherit-from-default 'all
+              theming-headings-same-size 'all
+              theming-headings-bold 'all)
+
      ;; Custom
      my-mac
      my-ibuffer
@@ -113,8 +116,14 @@ It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
   (setq-default
+
+   ;; Miscellaneous
    frame-title-format '(buffer-file-name "%b" "%b")
    require-final-newline t
+   vc-follow-symlinks t
+
+   ;; Ranger
+   ranger-override-dired t
 
    ;; Smartparens
    sp-highlight-pair-overlay nil
@@ -125,7 +134,7 @@ in `dotspacemacs/user-config'."
    matlab-auto-fill nil
    matlab-fill-code nil
    matlab-functions-have-end t
-   matlab-indent-function-body t
+   matlab-indent-function-body nil
 
    ;; Shell
    shell-default-term-shell "/bin/zsh"
