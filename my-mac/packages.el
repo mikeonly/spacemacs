@@ -37,6 +37,7 @@
     :config (mac-key-mode t)))
 
 (defun my-mac/post-init-mac-key-mode ()
+  (spacemacs/set-leader-keys-for-minor-mode 'mac-key-mode "iq" 'quoted-insert)
   (when (configuration-layer/package-usedp 'redo+)
     (define-key mac-key-mode-map [(control shift z)] 'redo))
   (when (configuration-layer/package-usedp 'comment-dwim-2)
