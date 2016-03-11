@@ -8,7 +8,7 @@ values."
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '("~/Dev/spacemacs/")
+   dotspacemacs-configuration-layer-path '("~/Dev/spacemacs-config/")
    dotspacemacs-configuration-layers
    '(
      (auto-completion :variables auto-completion-enable-sort-by-usage t)
@@ -118,6 +118,13 @@ It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
   (setq-default
+   srecode-map-base-template-dir ".cache/"
+
+   ;; Matlab
+   matlab-auto-fill nil
+   matlab-fill-code nil
+   matlab-functions-have-end t
+   matlab-indent-function-body nil
 
    ;; Miscellaneous
    frame-title-format '(buffer-file-name "%b" "%b")
@@ -131,12 +138,6 @@ in `dotspacemacs/user-config'."
    sp-highlight-pair-overlay nil
    sp-highlight-wrap-overlay nil
    sp-highlight-wrap-tag-overlay nil
-
-   ;; Matlab
-   matlab-auto-fill nil
-   matlab-fill-code nil
-   matlab-functions-have-end t
-   matlab-indent-function-body nil
 
    ;; Shell
    shell-default-term-shell "/bin/zsh"
