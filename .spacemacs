@@ -15,8 +15,10 @@ values."
      emacs-lisp
      extra-langs
      git
+     github
      (ibuffer :variables ibuffer-group-buffers-by nil)
      markdown
+     latex
      ranger
      semantic
      (shell :variables
@@ -32,7 +34,7 @@ values."
      ;; Custom
      my-mac
      my-ibuffer
-     my-font
+     ;; my-font It is now configured by default font
      )
    dotspacemacs-additional-packages '()
    dotspacemacs-excluded-packages
@@ -69,11 +71,11 @@ values."
                          monokai
                          zenburn)
    dotspacemacs-colorize-cursor-according-to-state t
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+   dotspacemacs-default-font '("Consolas"
+                               :size 12
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.2)
    dotspacemacs-leader-key "SPC"
    dotspacemacs-emacs-leader-key "<kp-enter>"
    dotspacemacs-major-mode-leader-key ","
