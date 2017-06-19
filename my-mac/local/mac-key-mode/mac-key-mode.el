@@ -1,5 +1,6 @@
 ;;; mac-key-mode.el --- provide mac-style key bindings
 
+;;; Code:
 (defgroup mac-key-mode nil
   "Mac-style key-binding mode."
   :group 'mac
@@ -24,31 +25,34 @@
     (define-key map [(control shift s)] 'write-file)
 
     (define-key map [(control a)] 'mark-whole-buffer)
-    (define-key map [(control f)] 'isearch-forward)
-    (define-key isearch-mode-map (kbd "C-g") 'isearch-repeat-forward)
-    (define-key isearch-mode-map (kbd "C-S-g") 'isearch-repeat-backward)
-
-    (define-key map [(control meta f)] 'occur)
 
     (define-key map [(control shift g)] 'goto-line)
+
+    (define-key map [(control f)] 'helm-swoop)
+
+    (define-key map [(control z)] 'undo-tree-undo)
+    (define-key map [(control shift z)] 'undo-tree-redo)
 
     (define-key map [(control up)] 'beginning-of-buffer)
     (define-key map [(control down)] 'end-of-buffer)
     (define-key map [(control left)] 'smarter-move-beginning-of-line)
     (define-key map [(control right)] 'end-of-visual-line)
-    (define-key map [(control backspace)] 'backward-kill-visual-line)
+    (define-key map [(control backspace)] 'backward-delete-line)
     (define-key map [(control delete)] 'kill-visual-line)
-    (define-key map (kbd "C-,") 'pop-to-mark-command)
+    (define-key map (kbd "C-,") 'pop-to-mark-command) ; TODO Maybe map
 
-    (define-key map (kbd "<C-M-up>") 'move-text-up)
-    (define-key map (kbd "<C-M-down>") 'move-text-down)
+    ;; Doesn't work as I want it for now.
+    (define-key map (kbd "<M-up>") 'move-line-up)
+    (define-key map (kbd "<M-down>") 'move-line-down)
 
     (define-key map [(alt up)] 'backward-paragraph)
     (define-key map [(alt down)] 'forward-paragraph)
     (define-key map [(alt left)] 'left-word)
     (define-key map [(alt right)] 'right-word)
-    (define-key map [(alt backspace)] 'backward-kill-word)
-    (define-key map [(alt delete)] 'forward-kill-word)
+
+    ;; Deletion
+    (define-key map [(alt backspace)] 'backward-delete-word)
+    (define-key map [(alt delete)] 'forward-delete-word)
 
     (define-key map [(alt control up)] (my-ignore-error-wrapper 'windmove-up))
     (define-key map [(alt control down)] (my-ignore-error-wrapper 'windmove-down))
@@ -59,6 +63,7 @@
     ;; (define-key map [] 'scroll-up-command) ; It's taken by cua-mode
     map)
   "Keymap for `mac-key-mode'.")
+
 
 
 ;;;###autoload
@@ -100,6 +105,38 @@ point reaches the beginning or end of the buffer, stop there."
   (funcall (if visual-line-mode #'kill-visual-line #'kill-line)
            (- 1 arg)))
 
+(defun backward-delete-line (arg)
+  "Delete ARG visual lines backward."
+  (interactive "p")
+  (if (use-region-p)
+      (delete-region (region-beginning) (region-end))
+    (delete-region (point) (progn (smarter-move-beginning-of-line arg) (point)))))
+
+;; https://www.emacswiki.org/emacs/BackwardDeleteWord
+(defun forward-delete-word (arg)
+  "Delete characters forward until encountering the end of a word.
+With argument, do this that many times."
+  (interactive "p")
+  (if (use-region-p)
+      (delete-region (region-beginning) (region-end))
+    (delete-region (point) (progn (forward-word arg) (point)))))
+
+(defun backward-delete-word (arg)
+  "Delete characters backward until encountering the end of a word.
+With argument, do this that many times."
+  (interactive "p")
+  (forward-delete-word (- arg)))
 (provide 'mac-key-mode)
 
+;; https://www.emacswiki.org/emacs/MoveLine
+(defun move-line-up ()
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2))
+
+(defun move-line-down ()
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1))
 ;;; mac-key-mode.el ends here.

@@ -16,7 +16,6 @@
     exec-path-from-shell
     osx-trash
     (mac-key-mode :location local)
-    redo+
     comment-dwim-2
     ))
 
@@ -41,10 +40,9 @@
   (when (configuration-layer/package-usedp 'redo+)
     (define-key mac-key-mode-map [(control shift z)] 'redo))
   (when (configuration-layer/package-usedp 'comment-dwim-2)
-    (define-key mac-key-mode-map [(control /)] 'comment-dwim-2)))
-
-(defun my-mac/init-redo+ ()
-  (use-package redo+))
+    (define-key mac-key-mode-map [(control /)] 'comment-dwim-2))
+  (dolist (cmd '(delete-word backward-delete-word))
+    (put cmd 'CUA 'move)))
 
 (defun my-mac/init-comment-dwim-2 ()
    (setq comment-dwim-2--inline-comment-behavior 'reindent-comment))
