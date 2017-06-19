@@ -22,12 +22,11 @@
 
     (define-key map [(control s)] 'save-buffer)
     (define-key map [(control shift s)] 'write-file)
-    (define-key map [(control q)] 'save-buffers-kill-emacs)
 
     (define-key map [(control a)] 'mark-whole-buffer)
     (define-key map [(control f)] 'isearch-forward)
-    (define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
-    (define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
+    (define-key isearch-mode-map (kbd "C-g") 'isearch-repeat-forward)
+    (define-key isearch-mode-map (kbd "C-S-g") 'isearch-repeat-backward)
 
     (define-key map [(control meta f)] 'occur)
 
@@ -39,6 +38,10 @@
     (define-key map [(control right)] 'end-of-visual-line)
     (define-key map [(control backspace)] 'backward-kill-visual-line)
     (define-key map [(control delete)] 'kill-visual-line)
+    (define-key map (kbd "C-,") 'pop-to-mark-command)
+
+    (define-key map (kbd "<C-M-up>") 'move-text-up)
+    (define-key map (kbd "<C-M-down>") 'move-text-down)
 
     (define-key map [(alt up)] 'backward-paragraph)
     (define-key map [(alt down)] 'forward-paragraph)
@@ -65,7 +68,7 @@ With arg, turn Mac Key mode on if arg is positive.
 When Mac Key mode is enabled, mac-style key bindings are provided."
   :global t
   :group 'mac-key-mode
-  :lighter (" " mac-key-mode-lighter)
+  :lighter ("" mac-key-mode-lighter)
   :keymap 'mac-key-mode-map)
 
 (defun smarter-move-beginning-of-line (arg)
@@ -98,4 +101,5 @@ point reaches the beginning or end of the buffer, stop there."
            (- 1 arg)))
 
 (provide 'mac-key-mode)
+
 ;;; mac-key-mode.el ends here.
