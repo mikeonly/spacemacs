@@ -14,6 +14,12 @@
   :type 'hook
   :group 'mac-key-mode)
 
+(defun my-ignore-error-wrapper (fn)
+  (lexical-let ((fn fn))
+    (lambda ()
+      (interactive)
+      (ignore-errors (funcall fn)))))
+
 (defvar mac-key-mode-map
   (let ((map (make-sparse-keymap)))
 
@@ -27,8 +33,6 @@
     (define-key map [(control a)] 'mark-whole-buffer)
 
     (define-key map [(control shift g)] 'goto-line)
-
-    (define-key map [(control f)] 'helm-swoop)
 
     (define-key map [(control z)] 'undo-tree-undo)
     (define-key map [(control shift z)] 'undo-tree-redo)
@@ -63,7 +67,6 @@
     ;; (define-key map [] 'scroll-up-command) ; It's taken by cua-mode
     map)
   "Keymap for `mac-key-mode'.")
-
 
 
 ;;;###autoload
@@ -126,7 +129,6 @@ With argument, do this that many times."
 With argument, do this that many times."
   (interactive "p")
   (forward-delete-word (- arg)))
-(provide 'mac-key-mode)
 
 ;; https://www.emacswiki.org/emacs/MoveLine
 (defun move-line-up ()
@@ -139,4 +141,6 @@ With argument, do this that many times."
   (forward-line 1)
   (transpose-lines 1)
   (forward-line -1))
+
+(provide 'mac-key-mode)
 ;;; mac-key-mode.el ends here.
